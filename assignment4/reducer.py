@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import sys
+from urlparse import urlparse
 
 pathHitCount = 0
 path_dic = {}
@@ -16,12 +17,14 @@ for line in sys.stdin:
         # Something has gone wrong. Skip this line.
         continue
     path = data[1]
+    url = urlparse(path).path
      
-    if not path in path_dic:
-        path_dic[path] = 1
+    if not url in path_dic:
+        path_dic[url] = 1
     else:
-        path_dic[path] += 1
+        path_dic[url] += 1
         
+
 hit_count, full_path = max(zip(path_dic.values(), path_dic.keys()))
 print hit_count
 
